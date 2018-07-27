@@ -10,9 +10,11 @@ var	express 		= require("express"),
 	methodOverride	= require("method-override");
 
 // Linking the Mongoose models.
+var User 			= require("./models/user");
 
 // Linking the routes
-var indexRoutes 	= require("./routes/index");
+var indexRoutes 	= require("./routes/index"),
+	userRoutes		= require("./routes/users");
 
 // Configuring the app and the Mongo Database
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
@@ -35,8 +37,9 @@ app.use(function(req, res, next){
 	next();
 });
 
-// Using the routes.
+// Configuring the routes.
 app.use("/", indexRoutes);
+app.use("/users", userRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
 	console.log("Server has started at PORT:" + process.env.PORT);
