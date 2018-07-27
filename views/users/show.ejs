@@ -1,6 +1,10 @@
-<h1><%=user.fullname%></h1>
+<%include ../partials/header %>
+<div class="container">
+	<h1><%=user.fullname%></h1>
 
-<a href="/users/<%=user._id%>/edit">Edit</a>
-<form action="/users/<%=user._id%>?_method=DELETE" method="POST">
-	<button>Delete</button>
-</form>
+	<a href="/users/<%=user._id%>/edit">Edit</a>
+	<form action="/users/<%=user._id%>?_method=DELETE" method="POST">
+		<button>Delete</button>
+	</form>
+</div>
+<%include ../partials/footer %>

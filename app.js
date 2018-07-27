@@ -16,11 +16,16 @@ var User 			= require("./models/user");
 var indexRoutes 	= require("./routes/index"),
 	userRoutes		= require("./routes/users");
 
+// Setting up styling files.
+app.use(express.static(__dirname + "/public"));
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+
 // Configuring the app and the Mongo Database
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
 app.use(bodyparser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 

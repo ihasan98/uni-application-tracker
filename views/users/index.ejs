@@ -1,11 +1,15 @@
-<table>
-	<th>Student-ID</th> <th>Name</th> <th>Email</th>
-<%users.forEach(function(user){%>
-	<tr>
-		<td><%=user.username%></td>
-		<td><%=user.fullname%></td>
-		<td><%=user.email%></td>
-		<td><a href="/users/<%=user._id%>">View</a></td>
-	</tr>
-<%});%>
-</table>
+<%include ../partials/header %>
+<div class="container">
+	<table>
+		<th>Student-ID</th> <th>Name</th> <th>Email</th>
+	<%users.forEach(function(user){%>
+		<tr>
+			<td><%=user.username%></td>
+			<td><%=user.fullname%></td>
+			<td><%=user.email%></td>
+			<td><a href="/users/<%=user._id%>">View</a></td>
+		</tr>
+	<%});%>
+	</table>
+</div>
+<%include ../partials/footer %>
