@@ -46,4 +46,42 @@ router.get("/:user_id", function(req, res) {
 	});
 });
 
+//EDIT and UPDATE Routes
+router.get("/:user_id/edit", function(req, res) {
+	User.findById(req.params.user_id, function(err, foundUser) {
+		if(err || !foundUser) {
+			req.flash("error", "User not found!");
+			console.log("Error in finding user to update: " + err);
+			res.redirect("/users");
+		} else {
+			res.render("users/edit", {user: foundUser});
+		}
+	});
+});
+
+router.put("/:user_id", function(req, res) {
+	User.findByIdAndUpdate(req.params.user_id, req.body.user, function(err, updatedUser) {
+		if(err || !updatedUser) {
+			req.flash("error", "User not found!");
+			console.log("Error in updating user: " + err);
+			res.redirect("/users");
+		} else {
+			req.flash("success", "Successfully updated " + updatedUser.fullname);
+			res.redirect("/users/" + req.params.user_id);
+		}
+	});
+});
+//DESTROY Routes
+router.delete("/:user_id", function(req, res) {
+	User.findByIdAndRemove(req.params.user_id, function(err) {
+		if(err) {
+			req.flash("error", "Error in deleting user!");
+			console.log("Error in deleting user: " + err);
+			res.redirect("/users");
+		} else {
+			req.flash("success", "Successfully deleted user!");
+			res.redirect("/users");
+		}
+	})
+})
 module.exports = router;
