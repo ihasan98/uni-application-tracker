@@ -1,0 +1,12 @@
+<%include ../partials/header %>
+<div class="container">
+	<h1><%=uni.name%></h1>
+	<table>
+		<%uni.essays.forEach(function(essay) {%>
+			<tr>
+				<td><%=essay.name%></td>
+			</tr>
+		<%});%>
+	<table>
+</div>
+<%include ../partials/footer %>

@@ -15,7 +15,7 @@ var schema = new mongoose.Schema({
 
 // Defines a virtual property for the number of essays
 schema.virtual('essays_num').get(function () {
-	return 5; // todo schema.get("essays").length;
+	return this.essays.length;
 });
 
 module.exports = mongoose.model("Universities", schema);
