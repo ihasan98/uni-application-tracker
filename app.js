@@ -15,6 +15,7 @@ var User 			= require("./models/user");
 // Linking the routes
 var indexRoutes 	= require("./routes/index"),
 	userRoutes		= require("./routes/users");
+	uniRoutes		= require("./routes/unis");
 
 // Setting up styling files.
 app.use(express.static(__dirname + "/public"));
@@ -45,6 +46,7 @@ app.use(function(req, res, next){
 // Configuring the routes.
 app.use("/", indexRoutes);
 app.use("/users", userRoutes);
+app.use("/unis", uniRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function() {
 	console.log("Server has started at PORT:" + process.env.PORT);
