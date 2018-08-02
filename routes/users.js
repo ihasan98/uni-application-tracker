@@ -71,6 +71,20 @@ router.put("/:user_id", function(req, res) {
 		}
 	});
 });
+
+//ADD Route
+router.get("/:user_id/add", function (req, res) {
+	User.findById(req.params.user_id, function (err, foundUser) {
+		if (err || !foundUser) {
+			console.log(err);
+			req.flash("error", "User not found!");
+			res.redirect("/users")
+		} else {
+			res.render("users/show", { user: foundUser });
+		}
+	});
+});
+
 //DESTROY Routes
 router.delete("/:user_id", function(req, res) {
 	User.findByIdAndRemove(req.params.user_id, function(err) {

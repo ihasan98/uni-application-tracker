@@ -1,0 +1,15 @@
+<%include ../partials/header %>
+<div class="container">
+	<table>
+		<th>University Name</th> <th>Number of Essays</th>
+		<%unis.forEach(function(unis){%>
+			<tr>
+				<td><%=unis.name%></td>
+				<td><%=unis.essays_num%></td>
+				<td><a href="/unis/<%=unis._id%>">View</a></td>
+				<td><a href="/unis/<%=unis._id%>/add">Add Essay</a></td>
+			</tr>
+		<%});%>
+	</table>
+</div>
+<%include ../partials/footer %>
