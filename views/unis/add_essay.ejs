@@ -1,14 +1,21 @@
 <%include ../partials/header %>
+
+<!-- HEADER -->
+<div class="container">
+	<h1>Adding an essay for <%=uni.name%></h1>
+</div>
+
+<!-- FORM -->
 <div class="container">
 	<form action="/unis/<%=uni._id%>?_method=PUT" method="POST">
-		<div class="form-group">
-			<input class="form-control" type="text" name="name" placeholder="Name">
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Name</span>
+			</div>
+			<input class="form-control" type="text" name="name">
 		</div>
-		Essay editing coming to a future commit near you!
-		
-		<div class="form-group">
-			<button class="btn btn-lg btn-primary btn-block">Submit</button>
-		</div>
+		<br>
+		<button class="btn btn-primary btn-block">Submit</button>
 	</form>
 </div>
 <%include ../partials/footer %>

@@ -1,25 +1,44 @@
 <%include ../partials/header %>
+
+<!-- HEADER -->
 <div class="container">
-	<form action="/users" method="POST">
-		<div class="form-group">
-			<input class="form-control" type="text" name="user[username]" placeholder="Username">
+	<h1>Add a new student</h1>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+	<form action="/users/" method="POST">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Username</span>
+			</div>
+			<input type="text" class="form-control" name="user[username]">
 		</div>
-		<div class="form-group">
-			<input class="form-control" type="password" name="user[password]" placeholder="Password">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Password</span>
+			</div>
+			<input type="password" name="user[password]" class="form-control">
 		</div>
-		<div class="form-group">
-			<input class="form-control" type="text" name="user[fullname]" placeholder="Full Name">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+			  <span class="input-group-text">Name</span>
+			</div>
+			<input type="text" class="form-control" name="user[fullname]">
 		</div>
-		<div class="form-group">
-			<input class="form-control" type="text" name="user[email]" placeholder="example@example.com">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Email</span>
+			</div>
+			<input type="text" class="form-control" name="user[email]">
 		</div>
-		<div class="form-group">
-			<input class="form-control" type="text" name="user[contact]" placeholder="Phone Number">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Phone</span>
+			</div>
+			<input type="tel" class="form-control" name="user[contact]">
 		</div>
-		
-		<div class="form-group">
-			<button class="btn btn-lg btn-primary btn-block">Submit</button>
-		</div>
+		<button type="submit" class="btn btn-lg btn-primary btn-block">Add Student</button>
 	</form>
 </div>
 <%include ../partials/footer %>
