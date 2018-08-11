@@ -1,12 +1,24 @@
 <%include ../partials/header %>
+
+<!-- HEADER -->
 <div class="container">
-	<h1><%=uni.name%></h1>
-	<table>
-		<%uni.essays.forEach(function(essay) {%>
+	<h1>Essays for <%=uni.name%></h1>
+	<p><%=uni.name%> has requested students write the following essays:</p>
+</div>
+
+<!-- DETAILS -->
+<div class="container">
+	<table class="table table-hover">
+		<thead>
+			<tr><th>Essays</th></tr>
+		</thead>
+		<tbody>
+			<%uni.essays.forEach(function(essay) {%>
 			<tr>
 				<td><%=essay.name%></td>
 			</tr>
-		<%});%>
+			<%});%>
+		</tbody>
 	<table>
 </div>
 <%include ../partials/footer %>
