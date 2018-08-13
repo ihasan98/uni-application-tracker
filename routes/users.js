@@ -1,12 +1,13 @@
 // Importing the correct packages
 const   express 	= require("express"),
-		router		= express.Router();
+		router		= express.Router(),
+		middleware 	= require("../middleware");
 
 // Importing the User mongoose model.
 const  	User 		= require("../models/user");
 
 // INDEX Route
-router.get("/", function(req, res) {
+router.get("/", middleware.isAdmin, function(req, res) {
 	User.find({}, function(err, users) {
 		if(err) {
 			res.redirect("/");
@@ -18,11 +19,11 @@ router.get("/", function(req, res) {
 });
 
 // NEW and CREATE Routes
-router.get("/new", function(req, res) {
+router.get("/new", middleware.isAdmin, function(req, res) {
 	res.render("users/new");
 });
 
-router.post("/", function(req, res) {
+router.post("/", middleware.isAdmin, function(req, res) {
 	User.register(req.body.user, req.body.password, function(err, createdUser) {
 		if(err){
 			console.log(err);
@@ -34,7 +35,7 @@ router.post("/", function(req, res) {
 });
 
 //SHOW Route
-router.get("/:user_id", function(req, res) {
+router.get("/:user_id", middleware.isAdmin, function(req, res) {
 	User.findById(req.params.user_id, function(err, foundUser) {
 		if(err || !foundUser) {
 			console.log(err);
@@ -47,7 +48,7 @@ router.get("/:user_id", function(req, res) {
 });
 
 //EDIT and UPDATE Routes
-router.get("/:user_id/edit", function(req, res) {
+router.get("/:user_id/edit", middleware.isAdmin, function(req, res) {
 	User.findById(req.params.user_id, function(err, foundUser) {
 		if(err || !foundUser) {
 			req.flash("error", "User not found!");
@@ -59,7 +60,7 @@ router.get("/:user_id/edit", function(req, res) {
 	});
 });
 
-router.put("/:user_id", function(req, res) {
+router.put("/:user_id", middleware.isAdmin, function(req, res) {
 	User.findByIdAndUpdate(req.params.user_id, req.body.user, function(err, updatedUser) {
 		if(err || !updatedUser) {
 			req.flash("error", "User not found!");
@@ -73,7 +74,7 @@ router.put("/:user_id", function(req, res) {
 });
 
 //ADD Route
-router.get("/:user_id/add", function (req, res) {
+router.get("/:user_id/add", middleware.isAdmin, function (req, res) {
 	User.findById(req.params.user_id, function (err, foundUser) {
 		if (err || !foundUser) {
 			console.log(err);
@@ -86,7 +87,7 @@ router.get("/:user_id/add", function (req, res) {
 });
 
 //DESTROY Routes
-router.delete("/:user_id", function(req, res) {
+router.delete("/:user_id", middleware.isAdmin, function(req, res) {
 	User.findByIdAndRemove(req.params.user_id, function(err) {
 		if(err) {
 			req.flash("error", "Error in deleting user!");
