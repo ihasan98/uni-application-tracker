@@ -1,9 +1,9 @@
 // Importing the correct packages
-var express 	= require("express"),
-	router		= express.Router();
+const   express 	= require("express"),
+		router		= express.Router();
 
 // Importing the User mongoose model.
-var User 		= require("../models/user");
+const  	User 		= require("../models/user");
 
 // INDEX Route
 router.get("/", function(req, res) {
@@ -23,11 +23,11 @@ router.get("/new", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-	var newUser = req.body.user;
-	User.create(newUser, function(err, createdUser) {
+	User.register(newUser, req.body.password function(err, createdUser) {
 		if(err){
 			console.log(err);
 		} else {
+			req.flash("success", "Successfully created user: " + createdUser.fullname )
 			res.redirect("/users");
 		}
 	});

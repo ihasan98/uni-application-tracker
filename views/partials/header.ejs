@@ -3,14 +3,24 @@
 	<head>
 		<title>University Application Tracker</title>
 
-		<!-- We use CDNs instead of locally hosting bootstrap and its dependencies -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- jQuery -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> <!-- jPopper -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> <!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Allows bootstrap to dynamically layout the webpage for PCs and phones -->
 	</head>
 
 	<body>
+		<!-- Adding flash containers -->
+		<div class="container">
+			<% if(error && error.length > 0){ %>
+				<div class="alert alert-danger" role="alert">
+					<%= error%>
+				</div>
+			<%}%>
+			
+			<% if(success && success.length > 0){ %>
+				<div class="alert alert-success" role="alert">
+					<%= success%>
+				</div>
+			<%}%>
+		</div>
 
