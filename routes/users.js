@@ -23,7 +23,7 @@ router.get("/new", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-	User.register(newUser, req.body.password function(err, createdUser) {
+	User.register(req.body.user, req.body.password, function(err, createdUser) {
 		if(err){
 			console.log(err);
 		} else {

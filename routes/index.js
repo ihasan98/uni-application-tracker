@@ -1,6 +1,7 @@
 // Requiring the correct packages.
 const express			= require("express"),
-	  router			= express.Router();
+	  router			= express.Router(),
+	  passport 			= require("passport");
 
 
 // Route for the landing page.
@@ -26,5 +27,11 @@ router.post("/login", passport.authenticate("local",
 		failureRedirect: "/login",
 		failureFlash: true
 	}), function(req,res) {});
+
+router.get("/logout", function(req, res) {
+	req.logout();
+	req.flash("success", "Successfully Logged Out!");
+	res.redirect("/login");
+})
 
 module.exports = router;

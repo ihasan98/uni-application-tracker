@@ -6,7 +6,7 @@ const mongoose      = require("mongoose"),
 
 const admin         = {};
 
-admin.username      = process.env.ADMINEMAIL;
+admin.username      = process.env.ADMINUSER;
 admin.fullname      = process.env.ADMINNAME;
 admin.isAdmin       = true;
 
