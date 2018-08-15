@@ -7,10 +7,10 @@ const	express 		= require("express"),
 		bodyparser		= require("body-parser"),
 		mongoose		= require("mongoose"),
 		flash			= require("connect-flash"),
-		passport 		= require("passport"),
+		passport		= require("passport"),
 		LocalStrategy	= require("passport-local"),
 		methodOverride	= require("method-override"),
-		seedDB 			= require("./seeds");
+		seedDB			= require("./seeds");
 
 seedDB();
 
@@ -19,8 +19,8 @@ const 	User 			= require("./models/user");
 
 // Linking the routes
 const 	indexRoutes 	= require("./routes/index"),
-	  	userRoutes		= require("./routes/users");
-	 	uniRoutes		= require("./routes/unis");
+		userRoutes		= require("./routes/users");
+		uniRoutes		= require("./routes/unis");
 
 // Setting up styling files.
 app.use(express.static(__dirname + "/public"));
@@ -42,7 +42,9 @@ app.use(require("express-session")({
 	saveUninitialized: false
 }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); // Allows for persistent sessions
+
+// Setups passport authentication (either through a session cookie, or login credentials)
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

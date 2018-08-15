@@ -1,6 +1,4 @@
-const User 				= require("../models/user");
-
-const middlewareObj 	= {}; 						// All the middleware goes here.
+const middlewareObj 	= {}; // All the middleware goes here.
 
 
 middlewareObj.isLoggedIn = function isLoggedIn(req, res, next) {
