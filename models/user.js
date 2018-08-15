@@ -1,25 +1,10 @@
-var mongoose = require("mongoose");
+const mongoose 				= require("mongoose"),
+	  passportLocalMongoose = require("passport-local-mongoose");
 
-var userSchema = new mongoose.Schema({
-	username: {
-		type: String,
-		required: [true, "You have to enter a username/userid."]
-	},
+const userSchema = new mongoose.Schema({
+	email: String,
 
-	password: {
-		type: String,
-		required: [true, "You have to enter a password."]
-	},
-
-	email: {
-		type: String,
-		required: [true, "You have to enter a valid email."]
-	},
-
-	fullname: {
-		type: String,
-		required: [true, "You have to enter your full name."]
-	},
+	fullname: String,
 
 	contact: String,
 
@@ -28,5 +13,7 @@ var userSchema = new mongoose.Schema({
 		default: false
 	}
 });
+
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema);

@@ -2,20 +2,25 @@
 require('dotenv').config();
 
 // Requiring the packages
-var	express 		= require("express"),
-	app				= express(),
-	bodyparser		= require("body-parser"),
-	mongoose		= require("mongoose"),
-	flash			= require("connect-flash"),
-	methodOverride	= require("method-override");
+const	express 		= require("express"),
+		app				= express(),
+		bodyparser		= require("body-parser"),
+		mongoose		= require("mongoose"),
+		flash			= require("connect-flash"),
+		passport		= require("passport"),
+		LocalStrategy	= require("passport-local"),
+		methodOverride	= require("method-override"),
+		seedDB			= require("./seeds");
+
+seedDB();
 
 // Linking the Mongoose models.
-var User 			= require("./models/user");
+const 	User 			= require("./models/user");
 
 // Linking the routes
-var indexRoutes 	= require("./routes/index"),
-	userRoutes		= require("./routes/users");
-	uniRoutes		= require("./routes/unis");
+const 	indexRoutes 	= require("./routes/index"),
+		userRoutes		= require("./routes/users");
+		uniRoutes		= require("./routes/unis");
 
 // Setting up styling files.
 app.use(express.static(__dirname + "/public"));
@@ -30,16 +35,24 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(flash());
 
-// Setting up sessions.
+// Setting up sessions and passport..
 app.use(require("express-session")({
 	secret: process.env.SECRETKEY,
 	resave: false,
 	saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session()); // Allows for persistent sessions
+
+// Setups passport authentication (either through a session cookie, or login credentials)
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
-	res.locals.error = req.flash("error");
-	res.locals.success = req.flash("success");
+	res.locals.currentUser	= req.user;
+	res.locals.error 		= req.flash("error");
+	res.locals.success 		= req.flash("success");
 	next();
 });
 
