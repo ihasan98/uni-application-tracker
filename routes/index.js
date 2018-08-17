@@ -6,15 +6,7 @@ const express			= require("express"),
 
 // Route for the landing page.
 router.get("/", function(req, res) {
-	if(req.isAuthenticated()) {
-		if(req.user.isAdmin) {
-			res.redirect("/users");
-		} else {
-			console.log("Page still needs to be built");
-		}
-	} else {
-		res.redirect("/login");
-	}
+	res.redirect("/users");
 });
 
 router.get("/login", function(req, res) {
