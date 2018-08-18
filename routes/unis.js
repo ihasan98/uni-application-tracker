@@ -36,7 +36,7 @@ router.get("/:id", function (req, res) {
 		if (err) {
 			console.log(err);
 			req.flash("error", "Error retrieving university!");
-			res.redirect("/unis")
+			res.redirect("/unis");
 		} else {
 			res.render("unis/show", { uni: uni });
 		}
@@ -48,7 +48,7 @@ router.put("/:id", function (req, res) {
 		if (err) {
 			console.log(err);
 			req.flash("error", "Error retrieving university!");
-			res.redirect("/unis")
+			res.redirect("/unis");
 		} else {
 			uni.essays.push(req.body);
 			uni.save(function (err) {

@@ -7,40 +7,45 @@ const   express 	= require("express"),
 const  	User 		= require("../models/user");
 
 // INDEX Route
-router.get("/", middleware.isAdmin, function(req, res) {
-	User.find({}, function(err, users) {
-		if(err) {
-			res.redirect("/");
-			console.log("Error in loading users!");
-		} else {
-			res.render("users/index", {users: users});
-		}
-	});
+router.get("/", middleware.isLoggedInRoute, function (req, res) {
+	if (middleware.isAdmin(req, res)) {
+		User.find({}, function (err, users) {
+			if (err) {
+				res.redirect("/");
+				console.log("Error in loading users!");
+			} else {
+				res.render("users/admin_index", { users: users });
+			}
+		});
+	}
+	else {
+		res.render("users/default_index", { name: req.user.fullname });
+	}
 });
 
 // NEW and CREATE Routes
-router.get("/new", middleware.isAdmin, function(req, res) {
+router.get("/new", middleware.isAdminRoute, function(req, res) {
 	res.render("users/new");
 });
 
-router.post("/", middleware.isAdmin, function(req, res) {
+router.post("/", middleware.isAdminRoute, function(req, res) {
 	User.register(req.body.user, req.body.password, function(err, createdUser) {
 		if(err){
 			console.log(err);
 		} else {
-			req.flash("success", "Successfully created user: " + createdUser.fullname )
+			req.flash("success", "Successfully created user: " + createdUser.fullname);
 			res.redirect("/users");
 		}
 	});
 });
 
 //SHOW Route
-router.get("/:user_id", middleware.isAdmin, function(req, res) {
+router.get("/:user_id", middleware.isAdminRoute, function(req, res) {
 	User.findById(req.params.user_id, function(err, foundUser) {
 		if(err || !foundUser) {
 			console.log(err);
 			req.flash("error", "User not found!");
-			res.redirect("/users")
+			res.redirect("/users");
 		} else {
 			res.render("users/show", {user: foundUser});
 		}
@@ -48,7 +53,7 @@ router.get("/:user_id", middleware.isAdmin, function(req, res) {
 });
 
 //EDIT and UPDATE Routes
-router.get("/:user_id/edit", middleware.isAdmin, function(req, res) {
+router.get("/:user_id/edit", middleware.isAdminRoute, function(req, res) {
 	User.findById(req.params.user_id, function(err, foundUser) {
 		if(err || !foundUser) {
 			req.flash("error", "User not found!");
@@ -60,7 +65,7 @@ router.get("/:user_id/edit", middleware.isAdmin, function(req, res) {
 	});
 });
 
-router.put("/:user_id", middleware.isAdmin, function(req, res) {
+router.put("/:user_id", middleware.isAdminRoute, function(req, res) {
 	User.findByIdAndUpdate(req.params.user_id, req.body.user, function(err, updatedUser) {
 		if(err || !updatedUser) {
 			req.flash("error", "User not found!");
@@ -74,12 +79,12 @@ router.put("/:user_id", middleware.isAdmin, function(req, res) {
 });
 
 //ADD Route
-router.get("/:user_id/add", middleware.isAdmin, function (req, res) {
+router.get("/:user_id/add", middleware.isAdminRoute, function (req, res) {
 	User.findById(req.params.user_id, function (err, foundUser) {
 		if (err || !foundUser) {
 			console.log(err);
 			req.flash("error", "User not found!");
-			res.redirect("/users")
+			res.redirect("/users");
 		} else {
 			res.render("users/show", { user: foundUser });
 		}
@@ -87,9 +92,9 @@ router.get("/:user_id/add", middleware.isAdmin, function (req, res) {
 });
 
 //DESTROY Routes
-router.delete("/:user_id", middleware.isAdmin, function(req, res) {
-	User.findByIdAndRemove(req.params.user_id, function(err) {
-		if(err) {
+router.delete("/:user_id", middleware.isAdminRoute, function (req, res) {
+	User.findByIdAndRemove(req.params.user_id, function (err) {
+		if (err) {
 			req.flash("error", "Error in deleting user!");
 			console.log("Error in deleting user: " + err);
 			res.redirect("/users");
@@ -97,6 +102,6 @@ router.delete("/:user_id", middleware.isAdmin, function(req, res) {
 			req.flash("success", "Successfully deleted user!");
 			res.redirect("/users");
 		}
-	})
-})
+	});
+});
 module.exports = router;

@@ -1,7 +1,7 @@
 const middlewareObj 	= {}; // All the middleware goes here.
 
 
-middlewareObj.isLoggedIn = function isLoggedIn(req, res, next) {
+middlewareObj.isLoggedInRoute = function isLoggedIn(req, res, next) {
 	if(req.isAuthenticated()) {
 		return next();
 	} else {
@@ -10,7 +10,7 @@ middlewareObj.isLoggedIn = function isLoggedIn(req, res, next) {
 	}
 };
 
-middlewareObj.isAdmin 	= function isAdmin(req, res, next) {
+middlewareObj.isAdminRoute 	= function isAdminRoute(req, res, next) {
 	if(req.isAuthenticated()) {
 		if(req.user.isAdmin) {
 			next();
@@ -22,6 +22,10 @@ middlewareObj.isAdmin 	= function isAdmin(req, res, next) {
 		req.flash("error", "Please Login First!");
 		res.redirect("/login");
 	}
+};
+
+middlewareObj.isAdmin = function isAdmin(req, res) {
+	return req.isAuthenticated() && req.user.isAdmin;
 };
 
 module.exports 			= middlewareObj;
