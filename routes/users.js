@@ -19,7 +19,7 @@ router.get("/", middleware.isLoggedInRoute, function (req, res) {
 		});
 	}
 	else {
-		res.render("users/default_index", { name: req.user.fullname });
+		res.redirect("users/" + req.user._id + "/unis");
 	}
 });
 

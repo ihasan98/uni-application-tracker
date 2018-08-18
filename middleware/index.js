@@ -24,6 +24,22 @@ middlewareObj.isAdminRoute 	= function isAdminRoute(req, res, next) {
 	}
 };
 
+middlewareObj.hasAccessRoute 	= function hasAccessRoute(req, res, next) {
+	if(req.isAuthenticated()) {
+		if(req.user.isAdmin) {
+			next();
+		} else if(req.user._id.equals(req.params.user_id)) {
+			next();
+		} else {
+			req.flash("error", "Sorry you cannot access that page!");
+			res.redirect("/users");
+		}
+	} else {
+		req.flash("error", "Please Login First!");
+		res.redirect("/login");
+	}
+};
+
 middlewareObj.isAdmin = function isAdmin(req, res) {
 	return req.isAuthenticated() && req.user.isAdmin;
 };
