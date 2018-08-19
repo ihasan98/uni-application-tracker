@@ -1,14 +1,14 @@
 // Importing the correct packages
 const   express 	= require("express"),
 		router		= express.Router(),
-		middleware 	= require("../middleware");
+		middleware = require("../middleware");
 
 // Importing the User mongoose model.
 const  	User 		= require("../models/user");
 
 // INDEX Route
 router.get("/", middleware.isLoggedInRoute, function (req, res) {
-	if (middleware.isAdmin(req, res)) {
+	if (req.isAuthenticated() && req.user.isAdmin) {
 		User.find({}, function (err, users) {
 			if (err) {
 				res.redirect("/");

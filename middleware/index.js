@@ -24,8 +24,4 @@ middlewareObj.isAdminRoute 	= function isAdminRoute(req, res, next) {
 	}
 };
 
-middlewareObj.isAdmin = function isAdmin(req, res) {
-	return req.isAuthenticated() && req.user.isAdmin;
-};
-
 module.exports 			= middlewareObj;
