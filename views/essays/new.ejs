@@ -1,0 +1,34 @@
+<%include ../partials/header %>
+
+<!-- HEADER -->
+<div class="container">
+	<h1>Add New Essay to <%=uni.name%></h1>
+</div>
+
+<!-- FORM -->
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-8">
+			<form action="/users/<%=currentUser._id%>/unis/<%=uni._id%>/essays" method="POST">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Prompt</span>
+					</div>
+					<textarea class="form-control" type="text" name="essay[prompt]"></textarea>
+				</div>
+
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Essay</span>
+					</div>
+					<textarea class="form-control" type="text" name="essay[content]"></textarea>
+				</div>
+
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary btn-block">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<%include ../partials/footer %>

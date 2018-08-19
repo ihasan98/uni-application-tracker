@@ -2,7 +2,8 @@ const 	express		= require("express"),
 		router		= express.Router({mergeParams: true}),
 		middleware 	= require("../middleware"),
 		db			= require("../models/unis"),
-		User 		= require("../models/user");
+		User 		= require("../models/user"),
+		Essay 		= require("../models/essay");
 
 // INDEX Routes
 router.get("/", middleware.hasAccessRoute, function (req, res) {
@@ -11,7 +12,9 @@ router.get("/", middleware.hasAccessRoute, function (req, res) {
 			res.redirect("/");
 			console.log("An error occured querying the database for universities.");
 		} else {
-			res.render("unis/index", { unis: foundUser.unis } ); 
+			Essay.populate(foundUser, 'unis.essays', function(err, unis) {
+				res.render("unis/index", { unis: foundUser.unis } ); 
+			});	
 		}
 	});
 });
