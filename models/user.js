@@ -8,6 +8,13 @@ const userSchema = new mongoose.Schema({
 
 	contact: String,
 
+	unis: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "University" 
+		}
+	],
+
 	isAdmin: {
 		type: Boolean,
 		default: false

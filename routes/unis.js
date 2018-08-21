@@ -1,33 +1,52 @@
-var express	= require("express"),
-	router	= express.Router(),
-	db		= require("../models/unis");
+const 	express		= require("express"),
+		router		= express.Router({mergeParams: true}),
+		middleware 	= require("../middleware"),
+		db			= require("../models/unis"),
+		User 		= require("../models/user"),
+		Essay 		= require("../models/essay");
 
-// root routes
-router.get("/", function (req, res) {
-	db.find(function (err, unis) {
+// INDEX Routes
+router.get("/", middleware.hasAccessRoute, function (req, res) {
+	User.findById(req.params.user_id).populate("unis").exec(function (err, foundUser) {
 		if (err) {
 			res.redirect("/");
 			console.log("An error occured querying the database for universities.");
 		} else {
-			res.render("unis/index", { unis: unis } ); 
+			Essay.populate(foundUser, 'unis.essays', function(err, unis) {
+				res.render("unis/index", { unis: foundUser.unis } ); 
+			});	
 		}
 	});
 });
 
-router.post("/", function (req, res) {
-	var newUni = req.body.unis;
-	db.create(newUni, function (err, createdUser) {
+
+// NEW and CREATE Routes
+router.get("/new", middleware.isLoggedInRoute, function (req, res) {
+	res.render("unis/new");
+});
+
+router.post("/", middleware.isLoggedInRoute, function (req, res) {
+	const newUni = req.body.unis;
+	db.create(newUni, function (err, createdUni) {
 		if (err) {
 			console.log(err);
+			res.redirect("back");
 		} else {
-			res.redirect("/unis");
+			User.findById(req.user._id, function(err, user) {
+				if(err) {
+					req.flash("error", "Something went wrong.");
+					console.log(err);
+					res.redirect("back");
+				} else {
+					user.unis.push(createdUni);
+					user.save(function(err, updUser) {
+						req.flash("success", "Successfully added " + createdUni.name);
+						res.redirect("/users/" + updUser._id +"/unis");
+					});
+				}
+			});
 		}
 	});
-});
-
-// /new routes
-router.get("/new", function (req, res) {
-	res.render("unis/new");
 });
 
 // /_id routes

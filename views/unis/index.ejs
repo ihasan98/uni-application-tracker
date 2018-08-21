@@ -32,7 +32,7 @@
 </div>
 
 <div class="container">
-	<a role="button" class="btn btn-outline-primary btn-block" href="/unis/new">Add University</a>
+	<a role="button" class="btn btn-outline-primary btn-block" href="/users/<%=currentUser._id%>/unis/new">Add University</a>
 </div>
 
 <!-- MODALS -->
@@ -54,7 +54,7 @@
 					<tbody>
 						<%uni.essays.forEach(function(essay) {%>
 						<tr>
-							<td><%=essay.name%></td>
+							<td><%=essay.prompt%></td>
 						</tr>
 						<%});%>
 					</tbody>
@@ -62,7 +62,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<a role="button" href="/unis/<%=uni._id%>/add" class="btn btn-primary mr-auto">Add Essay</a>
+				<a role="button" href="/users/<%=currentUser._id%>/unis/<%=uni._id%>/essays/new" class="btn btn-primary mr-auto">Add Essay</a>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 		</div>
