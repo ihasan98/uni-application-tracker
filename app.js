@@ -21,7 +21,10 @@ const 	User 			= require("./models/user");
 const 	indexRoutes 	= require("./routes/index"),
 		userRoutes		= require("./routes/users"),
 		uniRoutes		= require("./routes/unis"),
-		essayRoutes 	= require("./routes/essays");
+		essayRoutes		= require("./routes/essays");
+
+// Linking the API
+const usersAPI = require("./api/users");
 
 // Setting up styling files.
 app.use(express.static(__dirname + "/public"));
@@ -62,6 +65,9 @@ app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 app.use("/users/:user_id/unis", uniRoutes);
 app.use("/users/:user_id/unis/:uni_id/essays", essayRoutes);
+
+// Configuring the API
+app.use("/api/users", usersAPI);
 
 app.listen(process.env.PORT, process.env.IP, function() {
 	console.log("Server has started at PORT:" + process.env.PORT);
