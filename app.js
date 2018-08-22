@@ -67,7 +67,7 @@ app.use("/users/:user_id/unis", uniRoutes);
 app.use("/users/:user_id/unis/:uni_id/essays", essayRoutes);
 
 // Configuring the API
-app.use("/api", usersAPI);
+app.use("/api/users", usersAPI);
 
 app.listen(process.env.PORT, process.env.IP, function() {
 	console.log("Server has started at PORT:" + process.env.PORT);
