@@ -55,4 +55,17 @@ router.put("/:user_id", middleware.isAdminRoute, function (req, res) {
 	});
 });
 
+router.delete("/:user_id", middleware.isAdminRoute, function (req, res) {
+	User.findByIdAndRemove(req.params.user_id, function (err) {
+		if (err) {
+			req.flash("error", "Error in deleting user!");
+			console.log("Error in deleting user: " + err);
+			res.status(500).send; // Send INTERNAL SERVER ERROR
+		} else {
+			req.flash("success", "Successfully deleted user!");
+			res.status(200).send; // Send SUCCESS
+		}
+	});
+});
+
 module.exports = router;
