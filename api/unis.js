@@ -41,8 +41,20 @@ router.get("/:uni_id", middleware.isLoggedInRoute, function (req, res) {
 	});
 });
 
-//TODO: /:uni_id POST
+//Used for adding a university
+router.post("/", middleware.hasAccessRoute, function (req, res) {
+	uniDb.essays.push(req.body.essay);
+	uniDb.save(function (err, uni) {
+		if (err) {
+			res.status(500).send; // Send INTERNAL SERVER ERROR
+		}
+		else {
+			res.status(200).send; // Send SUCCESS
+		}
+	});
+});
 
+//Used for editing a university's name
 router.put("/:uni_id", middleware.isAdminRoute, function (req, res) {
 	uniDb.findByIdAndUpdate(req.body.uni_id, req.body.uni, function (err, uni) {
 		if (err) {
