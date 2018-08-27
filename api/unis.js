@@ -27,7 +27,7 @@ router.post("/", middleware.isAdminRoute, function (req, res) {
 	});
 });
 
-// /unis/:uni_id route (returns a specific uni's details)
+// /unis/:uni_id routes (returns a specific uni)
 router.get("/:uni_id", middleware.isLoggedInRoute, function (req, res) {
 	uniDb.findById(req.params.uni_id, function (err, uni) {
 		if (err) {
@@ -39,8 +39,8 @@ router.get("/:uni_id", middleware.isLoggedInRoute, function (req, res) {
 	});
 });
 
-//Used for adding a university
-router.post("/", middleware.hasAccessRoute, function (req, res) {
+//Used for adding an essay
+router.post("/:uni_id", middleware.hasAccessRoute, function (req, res) {
 	uniDb.essays.push(req.body.essay);
 	uniDb.save(function (err, uni) {
 		if (err) {
@@ -54,7 +54,7 @@ router.post("/", middleware.hasAccessRoute, function (req, res) {
 
 //Used for editing a university's name
 router.put("/:uni_id", middleware.isAdminRoute, function (req, res) {
-	uniDb.findByIdAndUpdate(req.body.uni_id, req.body.uni, function (err, uni) {
+	uniDb.findByIdAndUpdate(req.params.uni_id, req.body.uni, function (err, uni) {
 		if (err) {
 			console.log(err);
 			res.status(500).send; // Send INTERNAL SERVER ERROR
@@ -74,5 +74,62 @@ router.delete("/:uni_id", middleware.isAdminRoute, function (req, res) {
 		}
 	});
 });
+
+// /unis/:uni_id/:essay_id routes (returns a specific uni's essay details)
+router.get(":uni_id/:essay_id", middleware.isLoggedInRoute, function (req, res) {
+	const uni = null;
+	uniDb.findById(req.params.uni_id, function (err, returnedUni) {
+		if (err) {
+			res.send(err);
+		}
+		uni = returnedUni;
+	});
+	uni.findById(req.params.essay_id, function (err, essay) {
+		if (err) {
+			res.send(err);
+		}
+		else {
+			res.json(essay);
+		}
+	});
+});
+
+router.put(":uni_id/:essay_id", middleware.isAdminRoute, function (req, res) {
+	const uni = null;
+	uniDb.findById(req.params.uni_id, function (err, returnedUni) {
+		if (err) {
+			res.send(err);
+		}
+		uni = returnedUni;
+	});
+	uni.findByIdAndUpdate(req.params.essay_id, req.body.essay, function (err, essay) {
+		if (err) {
+			console.log(err);
+			res.status(500).send; // Send INTERNAL SERVER ERROR
+		} else {
+			res.status(200).send; // Send SUCCESS
+		}
+	});
+});
+
+// Only admins can delete an essay
+router.delete(":uni_id/:essay_id", middleware.isAdminRoute, function (req, res) {
+	const uni = null;
+	uniDb.findById(req.params.uni_id, function (err, returnedUni) {
+		if (err) {
+			res.send(err);
+		}
+		uni = returnedUni;
+	});
+	uni.findByIdAndRemove(req.params.essay_id, function (err) {
+		if (err) {
+			console.log(err);
+			res.status(500).send; // Send INTERNAL SERVER ERROR
+		} else {
+			res.status(200).send; // Send SUCCESS
+		}
+	});
+});
+
 
 module.exports = router;
