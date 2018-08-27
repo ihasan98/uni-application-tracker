@@ -20,10 +20,8 @@ router.post("/", middleware.isAdminRoute, function (req, res) {
 	uniDb.register(req.body.unis, function (err, createdUni) {
 		if (err) {
 			console.log(err);
-			req.flash("Could not create university.");
 			res.status(500).send; // Send INTERNAL SERVER ERROR
 		} else {
-			req.flash("success", "Successfully created university " + createdUni.name);
 			res.status(200).send; // Send SUCCESS
 		}
 	});
@@ -59,10 +57,8 @@ router.put("/:uni_id", middleware.isAdminRoute, function (req, res) {
 	uniDb.findByIdAndUpdate(req.body.uni_id, req.body.uni, function (err, uni) {
 		if (err) {
 			console.log(err);
-			req.flash("Could not edit university.");
 			res.status(500).send; // Send INTERNAL SERVER ERROR
 		} else {
-			req.flash("success", "Successfully edited " + uni.name);
 			res.status(200).send; // Send SUCCESS
 		}
 	});
@@ -71,11 +67,9 @@ router.put("/:uni_id", middleware.isAdminRoute, function (req, res) {
 router.delete("/:uni_id", middleware.isAdminRoute, function (req, res) {
 	uniDb.findByIdAndRemove(req.params.uni_id, function (err) {
 		if (err) {
-			req.flash("error", "Could not delete university.");
 			console.log("Error in deleting university " + err);
 			res.status(500).send; // Send INTERNAL SERVER ERROR
 		} else {
-			req.flash("success", "Successfully deleted university!");
 			res.status(200).send; // Send SUCCESS
 		}
 	});
