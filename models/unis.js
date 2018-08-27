@@ -1,17 +1,17 @@
 const mongoose 		= require("mongoose");
 
+const essaySchema = new mongoose.Schema({
+	prompt: String,
+	description: String,
+	wordLimit: String
+});
+
 const uniSchema 	= new mongoose.Schema({
 	name: {
 		type: String,
 		required: [true, "You have to enter a name."]
 	},
-
-	essays: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Essay"
-		}
-	]
+	essays: [ essaySchema ]
 });
 
 // Defines a virtual property for the number of essays
