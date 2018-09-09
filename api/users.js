@@ -20,10 +20,8 @@ router.post("/", middleware.isAdminRoute, function (req, res) {
 	userDb.register(req.body.user, req.body.password, function (err, createdUser) {
 		if (err) {
 			console.log(err);
-			req.flash("Could not create user.");
 			res.status(500).send; // Send INTERNAL SERVER ERROR
 		} else {
-			req.flash("success", "Successfully created user: " + createdUser.fullname);
 			res.status(200).send; // Send SUCCESS
 		}
 	});
@@ -46,10 +44,19 @@ router.put("/:user_id", middleware.isAdminRoute, function (req, res) {
 	userDb.findByIdAndUpdate(req.body.user_id, req.body.user, function (err, user) {
 		if (err) {
 			console.log(err);
-			req.flash("Could not edit user.");
 			res.status(500).send; // Send INTERNAL SERVER ERROR
 		} else {
-			req.flash("success", "Successfully edited user: " + user.fullname);
+			res.status(200).send; // Send SUCCESS
+		}
+	});
+});
+
+router.delete("/:user_id", middleware.isAdminRoute, function (req, res) {
+	User.findByIdAndRemove(req.params.user_id, function (err) {
+		if (err) {
+			console.log("Error in deleting user: " + err);
+			res.status(500).send; // Send INTERNAL SERVER ERROR
+		} else {
 			res.status(200).send; // Send SUCCESS
 		}
 	});
