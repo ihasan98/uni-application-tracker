@@ -1,26 +1,6 @@
 const mongoose 				= require("mongoose"),
 	  passportLocalMongoose = require("passport-local-mongoose");
-
-const userUniSchema = new mongoose.Schema({
-	uni: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "University"
-	},
-	essays: [
-		{
-			essay: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "University.essays"
-			},
-			date: {
-				type: Date,
-				default: Date.now()
-			},
-			essayContents: String
-		}
-	]
-});
-
+	  
 const userSchema = new mongoose.Schema({
 	email: String,
 
@@ -28,7 +8,12 @@ const userSchema = new mongoose.Schema({
 
 	contact: String,
 
-	essays: [ userUniSchema ],
+	unis: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "University"
+		}
+	],
 
 	isAdmin: {
 		type: Boolean,
