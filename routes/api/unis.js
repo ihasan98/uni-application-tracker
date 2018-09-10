@@ -1,15 +1,16 @@
-// Importing the required packages
-const express 		= require("express"),
-	  router 		= express.Router(),
-	  helpers 		= require("../helpers/unis");
-
+const 	express			= require("express"),
+		router			= express.Router(),
+		unis			= require("../../helpers/unis"),
+		essays			= require("../../helpers/essays");
+		
 router.route("/")
-.get(helpers.getsUnis)
-.post(helpers.createUnis)
+.get(unis.getsUnis)
+.post(unis.createUni);
 
 router.route("/:uni_id")
-.get(helpers.getUni)
-.put(helpers.putUni)
-.delete(helpers.deleteUni)
+.get(unis.getUni)
+.post(essays.createEssay)
+.put(unis.putUni)
+.delete(unis.deleteUni);
 
 module.exports = router;
