@@ -1,15 +1,14 @@
-// Importing the required packages
-const express 		= require("express"),
-	  router 		= express.Router(),
-	  helpers 		= require("../helpers/users");
+const 	express			= require("express"),
+		router			= express.Router(),
+		users			= require("../../helpers/users");
 
 router.route("/")
-.get(helpers.getsUsers)
-.post(helpers.createUser)
+.get(users.getsUsers)
+.post(users.createUser);
 
 router.route("/:user_id")
-.get(helpers.getUser)
-.put(helpers.putUser)
-.delete(helpers.deleteUser)
+.get(users.getUser)
+.put(users.putUser)
+.delete(users.deleteUser);
 
 module.exports = router;

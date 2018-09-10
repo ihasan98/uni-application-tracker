@@ -6,20 +6,21 @@ exports.getsUsers   = function(req, res) {
 		res.json(users);
 	})
 	.catch(function(err) {
-		res.send(err);
+		res.status(500).send(err);
 	});
-}
+};
 
 exports.createUser  = function(req, res) {
+    console.log(req.body);
     db.User.register(req.body.user, req.body.password)
     .then(function(createdUser){
-        res.status(200).send;
+        res.status(200).send({id: createdUser._id});
     })
     .catch(function(err) {
         console.log(err);
-		res.status(500).send;
+		res.status(500).send(err);
     });
-}
+};
 
 exports.getUser     = function (req, res) {
     db.User.findById(req.params.user_id)
@@ -27,7 +28,7 @@ exports.getUser     = function (req, res) {
         res.json(user);
     })
     .catch(function(err) {
-        res.send(err);
+        res.status(500).send(err);
     });
 }
 
@@ -38,7 +39,7 @@ exports.putUser      = function(req, res) {
     })
     .catch(function(err) {
         console.log(err);
-		res.status(500).send;
+		res.status(500).send(err);
     });
 }
 
@@ -48,7 +49,6 @@ exports.deleteUser      = function(req, res) {
         res.status(200).send;
     })
     .catch(function(err) {
-        console.log("Error in deleting user: " + err);
-		res.status(500).send;
+		res.status(500).send(err);
     });
 }
