@@ -4,7 +4,7 @@ const essaySchema   = new mongoose.Schema({
     uni: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "University",
-        required = [true, "A reference to a university is required!"]
+        required: [true, "A reference to a university is required!"]
     },
 
     prompt: {
