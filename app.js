@@ -24,7 +24,7 @@ const 	indexRoutes 	= require("./routes/index"),
 		essayRoutes		= require("./routes/essays");
 
 // Linking the API
-const usersAPI = require("./api/users");
+const	api 		= require("./routes/api/index");
 
 // Setting up styling files.
 app.use(express.static(__dirname + "/public"));
@@ -67,7 +67,7 @@ app.use("/users/:user_id/unis", uniRoutes);
 app.use("/users/:user_id/unis/:uni_id/essays", essayRoutes);
 
 // Configuring the API
-app.use("/api/users", usersAPI);
+app.use("/api", api);
 
 app.listen(process.env.PORT, process.env.IP, function() {
 	console.log("Server has started at PORT:" + process.env.PORT);
