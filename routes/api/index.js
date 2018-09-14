@@ -5,8 +5,8 @@ const 	express			= require("express"),
 		unis			= require("./unis"),
 		essays			= require("./essays");
 
-router.use("/users/:user_id/unis/:uni_id/essays/", essays);
-router.use("/users/:user_id/unis", unis);
+router.use("/essays", essays);
+router.use("/unis", unis);
 router.use("/users", users);
 
 module.exports = router;
