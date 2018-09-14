@@ -34,6 +34,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 // Configuring the app and the Mongo Database
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
