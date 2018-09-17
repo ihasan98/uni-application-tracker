@@ -4,11 +4,10 @@ import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const UserItem = ({username, fullname, email, onDelete}) => (
+const UserItem = ({username, fullname, onDelete}) => (
     <TableRow>
        <TableCell>{username}</TableCell>
        <TableCell>{fullname}</TableCell>
-       <TableCell>{email}</TableCell>
        <TableCell>
         <IconButton aria-label="Delete">
             <span onClick={onDelete}><DeleteIcon /></span>

@@ -104,7 +104,7 @@ class UserForm extends Component {
                             required
                         />
                     </div>
-                    <Button fullWidth variant='contained' color='primary'>ADD</Button>
+                    <Button type='submit' fullWidth variant='contained' color='primary'>ADD</Button>
                 </form>  
               </div>
           )
