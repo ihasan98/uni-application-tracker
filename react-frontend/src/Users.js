@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
 import * as apiCalls from './api';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
 import UserItem from './UserItem';
 import UserForm from './UserForm';
 
@@ -41,26 +49,33 @@ class Users extends Component {
             />
         ));
         return (
-            <div>
-                <h1>List of Users</h1>
-                <UserForm
-                    addUser={this.addUser}
-                />
-                <p>Click on the student ID to view their page.</p>
-                <table>
-		            <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Delete</th>
-                        </tr>    
-		            </thead>
-                    <tbody>
-                        {users}
-                    </tbody>
-                </table>
-            </div>
+            
+                <Grid container alignContent="center" justify="center">
+                    <Grid item xs={12} md={8} alignContent="center" justify="center">
+                        <Typography variant="display2" gutterBottom>
+                            List of Users
+                        </Typography>
+                        <UserForm
+                            addUser={this.addUser}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={8} alignContent="center" justify="center">
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Student ID</TableCell>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Delete</TableCell>
+                                </TableRow>   
+                            </TableHead>
+                            <TableBody>
+                                {users}
+                            </TableBody>
+                        </Table>
+                    </Grid>
+                </Grid>
+            
         )
     }
 }

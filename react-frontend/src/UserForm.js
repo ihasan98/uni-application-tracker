@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 class UserForm extends Component {
     constructor(props) {
@@ -37,71 +39,72 @@ class UserForm extends Component {
               <div>
                 <form onSubmit={this.handleSubmit}>
                     <div>
-                        <label htmlFor='username'>Username</label>
-                        <input
-                        id='username'
-                        type='text'
-                        placeholder=''
-                        name='username'
-                        value={username}
-                        size={36}
-                        autoComplete='off'
-                        onChange={this.handleChange} />
+                        <TextField
+                            id='username'
+                            name='username'
+                            type='text'
+                            variant='outlined'
+                            value={username}
+                            label='Username'
+                            onChange={this.handleChange}
+                            margin='normal'
+                            required
+                        />
                     </div>
                     <div>
-                        <label htmlFor='fullname'>Full Name</label>
-                        <input
-                        id='fullname'
-                        type='text'
-                        placeholder=''
-                        name='fullname'
-                        value={fullname}
-                        size={36}
-                        autoComplete='off'
-                        onChange={this.handleChange} />
+                        <TextField
+                            id='fullname'
+                            name='fullname'
+                            type='text'
+                            variant='outlined'
+                            value={fullname}
+                            label='Full Name'
+                            onChange={this.handleChange}
+                            margin='normal'
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <TextField
+                            id='email'
+                            name='email'
+                            type='text'
+                            variant='outlined'
+                            value={email}
+                            label='Email'
+                            onChange={this.handleChange}
+                            margin='normal'
+                            required
+                        />
                     </div>
                     <div>
-                        <label htmlFor='email'>Email</label>
-                        <input
-                        id='email'
-                        type='email'
-                        placeholder=''
-                        name='email'
-                        value={email}
-                        size={36}
-                        autoComplete='off'
-                        onChange={this.handleChange} />
+                        <TextField
+                            id='contact'
+                            name='contact'
+                            type='text'
+                            variant='outlined'
+                            value={contact}
+                            label='Contact(Num)'
+                            onChange={this.handleChange}
+                            margin='normal'
+                            required
+                        />
                     </div>
                     <div>
-                        <label htmlFor='contact'>Contact(Num)</label>
-                        <input
-                        id='contact'
-                        type='text'
-                        placeholder=''
-                        name='contact'
-                        value={contact}
-                        size={36}
-                        autoComplete='off'
-                        onChange={this.handleChange} />
+                        <TextField
+                            id='password'
+                            name='password'
+                            type='password'
+                            variant='outlined'
+                            value={password}
+                            label='Password'
+                            onChange={this.handleChange}
+                            margin='normal'
+                            required
+                        />
                     </div>
-                    <div>
-                        <label htmlFor='password'>Password</label>
-                        <input
-                        id='password'
-                        type='password'
-                        placeholder=''
-                        name='password'
-                        value={password}
-                        size={36}
-                        autoComplete='off'
-                        onChange={this.handleChange} />
-                    </div>
-                    <button
-                        type="submit"
-                        style={{alignSelf: 'flex-end', marginRight: 0}}
-                        >
-                        ADD
-                    </button>
+                    <Button fullWidth variant='contained' color='primary'>ADD</Button>
                 </form>  
               </div>
           )

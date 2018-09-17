@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const UserItem = ({username, fullname, email, onDelete}) => (
-    <tr>
-        <td>{username}</td>
-        <td>{fullname}</td>
-        <td>{email}</td>
-        <td> 
-           <span onClick={onDelete}> X </span>
-        </td>
-	</tr>
+    <TableRow>
+       <TableCell>{username}</TableCell>
+       <TableCell>{fullname}</TableCell>
+       <TableCell>{email}</TableCell>
+       <TableCell>
+        <IconButton aria-label="Delete">
+            <span onClick={onDelete}><DeleteIcon /></span>
+        </IconButton>
+        </TableCell> 
+    </TableRow>
 )
 
 export default UserItem;
