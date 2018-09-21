@@ -3,9 +3,10 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import './Users.css';
 
 const UserItem = ({username, fullname, onDelete}) => (
-    <TableRow>
+    <TableRow className="user-item">
        <TableCell>{username}</TableCell>
        <TableCell>{fullname}</TableCell>
        <TableCell>

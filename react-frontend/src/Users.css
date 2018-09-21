@@ -1,0 +1,8 @@
+.users-body {
+    height: 100%;
+    padding: 50px;
+}
+
+.user-item:hover {
+    background-color: rgba(230, 48, 69, 0.1)
+}

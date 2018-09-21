@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import * as apiCalls from './api';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
@@ -10,6 +11,17 @@ import TableBody from '@material-ui/core/TableBody';
 import Button from '@material-ui/core/Button';
 import UserItem from './UserItem';
 import UserForm from './UserForm';
+import './Users.css';
+
+const CustomTableCell = withStyles(theme => ({
+    head: {
+      backgroundColor: "rgb(230, 48, 69)",
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
 
 class Users extends Component {
     constructor(props) {
@@ -50,7 +62,7 @@ class Users extends Component {
             />
         ));
         return (
-            <div>
+            <div className="users-body">
                 <Grid container alignContent="center" justify="center">
                     <Grid item xs={12} md={6} alignContent="center" justify="center">
                         <Typography variant="display2" gutterBottom>
@@ -59,9 +71,9 @@ class Users extends Component {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Student ID</TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Delete</TableCell>
+                                    <CustomTableCell>Student ID</CustomTableCell>
+                                    <CustomTableCell>Name</CustomTableCell>
+                                    <CustomTableCell>Delete</CustomTableCell>
                                 </TableRow>   
                             </TableHead>
                             <TableBody>
@@ -90,7 +102,7 @@ class Users extends Component {
                         }
                     </Grid>
                 </Grid>
-             </div>
+            </div>
         )
     }
 }
