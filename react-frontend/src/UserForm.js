@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import './UserForm.css';
 
 class UserForm extends Component {
     constructor(props) {
@@ -36,77 +38,86 @@ class UserForm extends Component {
           const {username, fullname, email, password, contact} = this.state;
 
           return (
-              <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <TextField
-                            id='username'
-                            name='username'
-                            type='text'
-                            variant='outlined'
-                            value={username}
-                            label='Username'
-                            onChange={this.handleChange}
-                            margin='normal'
-                            required
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            id='fullname'
-                            name='fullname'
-                            type='text'
-                            variant='outlined'
-                            value={fullname}
-                            label='Full Name'
-                            onChange={this.handleChange}
-                            margin='normal'
-                            required
-                        />
-                    </div>
+            <div>
+                <Typography variant="display1" gutterBottom>
+                    Add New User
+                </Typography>
+                <div className="form-body">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="form-field">
+                            <TextField
+                                id='username'
+                                name='username'
+                                type='text'
+                                variant='outlined'
+                                value={username}
+                                label='Username'
+                                onChange={this.handleChange}
+                                fullWidth
+                                required
+                            />
+                        </div>
+                        <div className="form-field">
+                            <TextField
+                                id='fullname'
+                                name='fullname'
+                                type='text'
+                                variant='outlined'
+                                value={fullname}
+                                label='Full Name'
+                                onChange={this.handleChange}
+                                fullWidth
+                                required
+                            />
+                        </div>
 
-                    <div>
-                        <TextField
-                            id='email'
-                            name='email'
-                            type='text'
-                            variant='outlined'
-                            value={email}
-                            label='Email'
-                            onChange={this.handleChange}
-                            margin='normal'
-                            required
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            id='contact'
-                            name='contact'
-                            type='text'
-                            variant='outlined'
-                            value={contact}
-                            label='Contact(Num)'
-                            onChange={this.handleChange}
-                            margin='normal'
-                            required
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            id='password'
-                            name='password'
-                            type='password'
-                            variant='outlined'
-                            value={password}
-                            label='Password'
-                            onChange={this.handleChange}
-                            margin='normal'
-                            required
-                        />
-                    </div>
-                    <Button type='submit' fullWidth variant='contained' color='primary'>ADD</Button>
-                </form>  
-              </div>
+                        <div className="form-field">
+                            <TextField
+                                id='email'
+                                name='email'
+                                type='email'
+                                variant='outlined'
+                                value={email}
+                                label='Email'
+                                onChange={this.handleChange}
+                                fullWidth
+                                required
+                            />
+                        </div>
+                        <div className="form-field">
+                            <TextField
+                                id='contact'
+                                name='contact'
+                                type='text'
+                                variant='outlined'
+                                value={contact}
+                                label='Contact(Num)'
+                                onChange={this.handleChange}
+                                fullWidth
+                                required
+                            />
+                        </div>
+                        <div className="form-field">
+                            <TextField
+                                id='password'
+                                name='password'
+                                type='password'
+                                variant='outlined'
+                                value={password}
+                                label='Password'
+                                onChange={this.handleChange}
+                                fullWidth 
+                                required
+                            />
+                        </div>
+                        <Button 
+                        type='submit' 
+                        variant='contained' 
+                        color='secondary' 
+                        fullWidth>ADD</Button>
+                    </form>  
+                </div>
+            </div>
           )
       }
 }
