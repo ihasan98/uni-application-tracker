@@ -1,12 +1,11 @@
 const 	express		= require("express"),
 		router		= express.Router({mergeParams: true}),
-		middleware 	= require("../middleware"),
+		middleware 	= require("../middleware/auth"),
 		Uni			= require("../models/unis"),
-		User 		= require("../models/user"),
 		Essay 		= require("../models/essay");
 
 // NEW and CREATE Routes 
-router.get("/new", middleware.hasAccessRoute, function(req, res) {
+router.get("/new", middleware.isCurrentUser, function(req, res) {
 	Uni.findById(req.params.uni_id, function(err, uni) {
 		if(err || !uni) {
 			console.log(err);
@@ -18,7 +17,7 @@ router.get("/new", middleware.hasAccessRoute, function(req, res) {
 	});
 });
 
-router.post("/", middleware.hasAccessRoute, function(req, res) {
+router.post("/", middleware.isCurrentUser, function(req, res) {
 	const newEssay 	= req.body.essay;
 	newEssay.author = req.params.user_id;
 	Essay.create(newEssay, function(err, essay) {

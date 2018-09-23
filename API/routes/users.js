@@ -1,7 +1,7 @@
 // Importing the correct packages
 const   express 	= require("express"),
 		router		= express.Router(),
-		middleware = require("../middleware");
+		middleware 	= require("../middleware/auth");
 
 // Importing the User mongoose model.
 const  	User 		= require("../models/user");
