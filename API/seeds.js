@@ -9,7 +9,7 @@ admin.username = process.env.ADMINUSER;
 admin.fullname = process.env.ADMINNAME;
 admin.isAdmin = true;
 
-function seedDB() {
+module.exports = function() {
 	User.find({ isAdmin: true }, function (err, users) {
 		if (users.length === 0) {
 			User.register(admin, process.env.ADMINPASSWORD, function (err, admin) {
@@ -19,6 +19,4 @@ function seedDB() {
 			});
 		}
 	});
-}
-
-module.exports = seedDB;
+};

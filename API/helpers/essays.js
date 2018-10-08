@@ -20,7 +20,7 @@ exports.getEssay	= function (req, res) {
 	.catch(function(err) {
 		res.status(500).send(err);
 	});
-}
+};
 
 exports.putEssay	= function(req, res) {
 	db.Essay.findByIdAndUpdate(req.body.essay_id, req.body.essay)
@@ -31,7 +31,7 @@ exports.putEssay	= function(req, res) {
 		console.log(err);
 		res.status(500).send(err);
 	});
-}
+};
 
 exports.deleteEssay	= function(req, res) {
 	db.Essay.findByIdAndRemove(req.params.essay_id)
@@ -41,4 +41,4 @@ exports.deleteEssay	= function(req, res) {
 	.catch(function(err) {
 		res.status(500).send(err);
 	});
-}
+};

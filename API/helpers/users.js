@@ -30,7 +30,7 @@ exports.getUser     = function (req, res) {
     .catch(function(err) {
         res.status(500).send(err);
     });
-}
+};
 
 exports.putUser      = function(req, res) {
     db.User.findByIdAndUpdate(req.body.user_id, req.body.user)
@@ -41,7 +41,7 @@ exports.putUser      = function(req, res) {
         console.log(err);
 		res.status(500).send(err);
     });
-}
+};
 
 exports.deleteUser      = function(req, res) {
     db.User.findByIdAndRemove(req.params.user_id)
@@ -51,4 +51,4 @@ exports.deleteUser      = function(req, res) {
     .catch(function(err) {
 		res.status(500).send(err);
     });
-}
+};

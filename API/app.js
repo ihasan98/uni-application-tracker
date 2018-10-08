@@ -4,6 +4,7 @@ require('dotenv').config();
 // Requiring the packages
 const	express 		= require("express"),
 		app				= express(),
+		path			= require("path"),
 		bodyparser		= require("body-parser"),
 		mongoose		= require("mongoose"),
 		flash			= require("connect-flash"),
@@ -27,10 +28,10 @@ const 	indexRoutes 	= require("./routes/index"),
 const	api 		= require("./routes/api/index");
 
 // Setting up styling files.
-app.use(express.static(__dirname + "/public"));
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use(express.static(path.join(__dirname, "public")));
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'))); // Redirect bootstrap JS
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist'))); // Redirect JS jQuery
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css'))); // Redirect CSS bootstrap
 
 // Configuring the app and the Mongo Database
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
