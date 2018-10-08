@@ -1,12 +1,12 @@
 const 	express		= require("express"),
 		router		= express.Router({mergeParams: true}),
-		middleware 	= require("../middleware"),
+		middleware 	= require("../middleware/auth"),
 		db			= require("../models/unis"),
 		User 		= require("../models/user"),
 		Essay 		= require("../models/essay");
 
 // INDEX Routes
-router.get("/", middleware.hasAccessRoute, function (req, res) {
+router.get("/", middleware.isCurrentUser, function (req, res) {
 	User.findById(req.params.user_id).populate("unis").exec(function (err, foundUser) {
 		if (err) {
 			res.redirect("/");

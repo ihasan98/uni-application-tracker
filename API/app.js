@@ -9,6 +9,7 @@ const	express 		= require("express"),
 		mongoose		= require("mongoose"),
 		flash			= require("connect-flash"),
 		passport		= require("passport"),
+		jwtStrategy		= require("./loginStrategy"),
 		LocalStrategy	= require("passport-local"),
 		methodOverride	= require("method-override"),
 		seedDB			= require("./seeds");
@@ -50,8 +51,9 @@ app.use(require("express-session")({
 app.use(passport.initialize());
 app.use(passport.session()); // Allows for persistent sessions
 
-// Setups passport authentication (either through a session cookie, or login credentials)
+//We use the local strategy to generate the JWT, then use JWT strategy to authenticate all other requests.
 passport.use(new LocalStrategy(User.authenticate()));
+passport.use(jwtStrategy);
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

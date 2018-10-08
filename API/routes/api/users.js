@@ -1,14 +1,15 @@
 const 	express			= require("express"),
 		router			= express.Router(),
-		users			= require("../../helpers/users");
+		users			= require("../../helpers/users"),
+		auth			= require("../../middleware/auth");
 
 router.route("/")
-.get(users.getsUsers)
-.post(users.createUser);
+.get(auth.isAdminRoute, users.getsUsers)
+.post(auth.isAdminRoute, users.createUser);
 
 router.route("/:user_id")
-.get(users.getUser)
-.put(users.putUser)
-.delete(users.deleteUser);
+.get(auth.isCurrentUser, users.getUser)
+.put(auth.isCurrentUser, users.putUser)
+.delete(auth.isAdminRoute, users.deleteUser);
 
 module.exports = router;
