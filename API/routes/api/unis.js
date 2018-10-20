@@ -5,13 +5,13 @@ const 	express			= require("express"),
 		auth			= require("../../middleware/auth");
 		
 router.route("/")
-.get(auth.isLoggedInRoute(), unis.getsUnis)
-.post(auth.isLoggedInRoute(), unis.createUni);
+.get(auth.isLoggedInRoute, unis.getsUnis)
+.post(auth.isLoggedInRoute, unis.createUni);
 
 router.route("/:uni_id")
-.get(auth.isLoggedInRoute(), unis.getUni)
-.post(auth.isLoggedInRoute(), essays.createEssay)
-.put(auth.isLoggedInRoute(), unis.putUni)
-.delete(auth.isLoggedInRoute(), unis.deleteUni);
+.get(auth.isLoggedInRoute, unis.getUni)
+.post(auth.isLoggedInRoute, essays.createEssay)
+.put(auth.isLoggedInRoute, unis.putUni)
+.delete(auth.isLoggedInRoute, unis.deleteUni);
 
 module.exports = router;
