@@ -1,8 +1,17 @@
 const USERAPI = '/api/users/';
 const UNIAPI = '/api/unis/';
+const LOGINAPI = '/api/login/';
+
+function getAuthToken(){
+    return 'Bearer ' + sessionStorage.getItem('token');
+}
 
 export async function getUsers() {
-    return fetch(USERAPI)
+    return fetch(USERAPI, {
+        headers: new Headers({
+            'Authorization': getAuthToken(),
+        })
+    })
     .then(resp => { return ValidateHTTPStatus(resp) });
 }
 
@@ -10,6 +19,7 @@ export async function createUser(userInput) {
     return fetch(USERAPI, {
         method: 'post',
         headers: new Headers({
+            'Authorization': getAuthToken(),
             'Content-Type' : 'application/json',
         }),
         body: JSON.stringify({...userInput})
@@ -20,13 +30,20 @@ export async function createUser(userInput) {
 export async function removeUser(id) {
     const DELETEURL = USERAPI + id;
     return fetch(DELETEURL, {
-        method: 'delete'
+        method: 'delete',
+        headers: new Headers({
+            'Authorization': getAuthToken(),
+        })
     })
     .then(resp => { return ValidateHTTPStatus(resp) });
 }
 
 export async function getUnis() {
-    return fetch(UNIAPI)
+    return fetch(UNIAPI, {
+        headers: new Headers({
+            'Authorization': getAuthToken(),
+        })
+    })
     .then(resp => { return ValidateHTTPStatus(resp) });
 }
 
@@ -34,6 +51,7 @@ export async function createUni(uniInput) {
     return fetch(UNIAPI, {
         method: 'post',
         headers: new Headers({
+            'Authorization': getAuthToken(),
             'Content-Type' : 'application/json',
         }),
         body: JSON.stringify({...uniInput})
@@ -44,9 +62,25 @@ export async function createUni(uniInput) {
 export async function removeUni(id) {
     const DELETEURL = UNIAPI + id;
     return fetch(DELETEURL, {
-        method: 'delete'
+        method: 'delete',
+        headers: new Headers({
+            'Authorization': getAuthToken(),
+        })
     })
     .then(resp => { return ValidateHTTPStatus(resp) });
+}
+
+export async function login(credentials) {
+    console.log(JSON.stringify(credentials))
+    return fetch(LOGINAPI, {
+        method: 'post',
+        headers: new Headers({
+            'Content-Type' : 'application/json'
+        }),
+        body: JSON.stringify({...credentials})
+    })
+    .then(resp => { return ValidateHTTPStatus(resp) })
+    .catch(err => { console.log(err) });
 }
 
 function ValidateHTTPStatus(resp){
