@@ -10,7 +10,7 @@ middlewareObj.isLoggedInRoute = function(req, res, next) {
 		else if (user) {
 			return next(); // We found the user, therefore we're logged in
 		}
-		return res.status(500).json({err: "User not logged in or not found!"});
+		return res.status(401).json({err: "User not logged in or not found!"});
 	})(req, res, next);
 };
 
@@ -24,7 +24,7 @@ middlewareObj.isAdminRoute 	= function(req, res, next) {
 		else if (user.isAdmin) {
 			return next(); // We found the user, and they're an admin
 		}
-		return res.status(500).json({err: "User not found or is not admin!"});
+		return res.status(401).json({err: "User not found or is not admin!"});
 	})(req, res, next);
 };
 
@@ -39,7 +39,7 @@ middlewareObj.isCurrentUser 	= function(req, res, next) {
 		else if (user._id.toString() === req.params.user_id || user.isAdmin) {
 			return next(); // We found the user, and they're either an admin or they're modifying their own route
 		}
-		return res.status(500).json({err: "User not found or unauthorized!"});
+		return res.status(401).json({err: "User not found or unauthorized!"});
 	})(req, res, next);
 };
 

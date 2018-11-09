@@ -26,7 +26,7 @@ router.post("/",
                     });
                 }
                 else{
-                    res.status(404).json({error: "User not found!"});
+                    res.status(200).json({error: "User not found!"});
                 }
         })(req, res, next);
     }
