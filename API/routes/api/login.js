@@ -19,9 +19,16 @@ router.post("/",
                             res.json(err);
                         } 
                         else {
-                            console.log("Token "+ user);
                             const token = jwt.sign(JSON.stringify(user), process.env.SECRETKEY);
-                            res.json({auth: token});
+                            
+                            // We don't need the salt and hash to be returned to the user
+                            delete user.salt;
+                            Reflect.deleteProperty(user, 'hash');
+                            console.log("Token "+ user);
+                            res.json({
+                                auth: token,
+                                user: user
+                            });
                         }
                     });
                 }
