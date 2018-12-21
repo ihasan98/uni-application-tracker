@@ -14,31 +14,21 @@ class Unis extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user_id: props.user_id,
-            unis: [],
-            showForm: false
+            unis: props.unis
         }
+        this.logout = this.props.logout;
         this.addUni = this.addUni.bind(this);
     }
 
     async addUni(uni) {
         let newUnis = await apiCalls.createUni(uni);
-        this.setState({unis : [...this.state.unis, newUnis], showForm : false});
+        this.setState({unis : [...this.state.unis, newUnis]});
     }
 
     async deleteUni(id) {
         await apiCalls.removeUni(id);
         const unis = this.state.unis.filter(uni => uni._id !== id);
         this.setState({unis}); 
-    }
-
-    componentWillMount() {
-        this.loadUnis();
-    }
-
-    async loadUnis() {
-        let unis = await apiCalls.getUnis();
-        this.setState({unis});
     }
 
     render() {

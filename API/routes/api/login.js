@@ -22,10 +22,10 @@ router.post("/",
                             const token = jwt.sign(JSON.stringify(user), process.env.SECRETKEY);
                             
                             // We don't need the salt and hash to be returned to the user
-                            delete user.salt;
+                            Reflect.deleteProperty(user, 'salt');
                             Reflect.deleteProperty(user, 'hash');
                             console.log("Token "+ user);
-                            res.json({
+                            res.status(200).json({
                                 auth: token,
                                 user: user
                             });
