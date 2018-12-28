@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'typeface-roboto';
 import Users from './Users';
+import Unis from './Unis'
 import Login from './Login';
 import './App.css';
 
@@ -8,23 +9,34 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isLoggedIn: sessionStorage.getItem('token') != null
+      user: null
     }
-    console.log(sessionStorage.getItem('token'))
+    this.login = this.login.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
   async logout() {
-    this.setState({isLoggedIn: false})
+    this.setState({user: null})
   }
 
-  async login() {
-    this.setState({isLoggedIn: true})
+  async login(user) {
+    console.log("user")
+    console.log(user)
+    this.setState({user: user})
   }
 
   render() {
     var mainPage
-    if (this.state.isLoggedIn === true) {
-      mainPage = <Users logout={this.logout} />
+    console.log(this.state.user)
+    console.log("admin")
+    if (this.state.user != null) {
+      console.log(this.state.user)
+      if (this.state.user.isAdmin) {
+        mainPage = <Users logout={this.logout} />;
+      }
+      else {
+        mainPage = <Unis logout={this.logout} unis={this.state.user.unis} />
+      }
     } else {
       mainPage = <Login login={this.login}/>
     }

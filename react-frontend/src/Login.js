@@ -12,15 +12,17 @@ class Login extends Component {
         }
         this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
+        
+        // This is App.js's login function, which we'll call
+        // to supply the app with userdata, and to refresh the page
         this.appLogin = props.login;
     }
 
-    async login() {
-        let jwtToken = await api.login(this.state);
-        sessionStorage.setItem('token', jwtToken.auth);
-        console.log(sessionStorage.getItem('token'));
-        this.appLogin();
+    async login(e) {
+        e.preventDefault(); // Prevents page refresh
+        let user = await api.login(this.state);
+        sessionStorage.setItem('token', user.auth);
+        this.props.login(user.user);
     }
     
     async handleChange(e) {
@@ -67,4 +69,4 @@ class Login extends Component {
     }
 }
 
-export default Users;
+export default Login;
