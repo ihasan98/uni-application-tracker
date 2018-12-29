@@ -3,6 +3,7 @@ import 'typeface-roboto';
 import Users from './Users';
 import Unis from './Unis'
 import Login from './Login';
+import MenuBar from './menuBar';
 import './App.css';
 
 class App extends Component {
@@ -40,11 +41,10 @@ class App extends Component {
     } else {
       mainPage = <Login login={this.login}/>
     }
-    return (
-      <div className="App">
-        { mainPage }
-      </div>
-    );
+    return <div className="App">
+        <MenuBar />
+        {mainPage}
+      </div>;
   }
 }
 
