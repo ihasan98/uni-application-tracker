@@ -9,6 +9,19 @@ class MenuBar extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        // The if statements are necessary, otherwise we enter an infinite loop
+        console.log(
+            "menubar update"
+        )
+        if (this.props.isLoggedIn !== prevProps.isLoggedIn) {
+            this.setState({ isLoggedIn: this.props.isLoggedIn })
+        }
+        if (this.props.username !== prevProps.username) {
+            this.setState({ username: this.props.username });
+        }
+    }
+
     render() {
         var usernameText
         if (this.state.isLoggedIn) {

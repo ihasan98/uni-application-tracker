@@ -3,7 +3,7 @@ import 'typeface-roboto';
 import Users from './Users';
 import Unis from './Unis'
 import Login from './Login';
-import MenuBar from './menuBar';
+import MenuBar from './MenuBar';
 import './App.css';
 
 class App extends Component {
@@ -28,10 +28,7 @@ class App extends Component {
 
   render() {
     var mainPage
-    console.log(this.state.user)
-    console.log("admin")
     if (this.state.user != null) {
-      console.log(this.state.user)
       if (this.state.user.isAdmin) {
         mainPage = <Users logout={this.logout} />;
       }
@@ -41,10 +38,12 @@ class App extends Component {
     } else {
       mainPage = <Login login={this.login}/>
     }
-    return <div className="App">
-        <MenuBar />
+    return (
+      <div className="App">
+        <MenuBar isLoggedIn={this.state.user !== null} username={this.state.user !== null ? this.state.user.username : "unknown" } />
         {mainPage}
-      </div>;
+      </div>
+    );
   }
 }
 
