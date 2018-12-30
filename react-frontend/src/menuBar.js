@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from '@material-ui/core';
 
 class MenuBar extends Component {
     constructor(props) {
@@ -7,6 +8,7 @@ class MenuBar extends Component {
             isLoggedIn: props.isLoggedIn,
             username: props.username
         }
+        this.logout = this.props.logout;
     }
 
     componentDidUpdate(prevProps) {
@@ -24,16 +26,18 @@ class MenuBar extends Component {
 
     render() {
         var usernameText
+        var logoutButton
         if (this.state.isLoggedIn) {
             usernameText = "Welcome " + this.state.username;
+            logoutButton = <Button onClick={this.logout}> Logout </Button>
         } else {
             usernameText = "Please log in!"
+            logoutButton = null
         }
-        return (
-            <div className="menuBar">
-                { usernameText }
-            </div>
-        )
+        return <div className="menuBar">
+            {usernameText}
+            {logoutButton}
+          </div>;
     }
 }
 

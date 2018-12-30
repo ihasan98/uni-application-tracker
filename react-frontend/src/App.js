@@ -17,12 +17,13 @@ class App extends Component {
   }
 
   async logout() {
-    this.setState({user: null})
+    this.setState({ user: null })
+    sessionStorage.setItem("token", "");
+    console.log("logout")
   }
 
   async login(user) {
-    console.log("user")
-    console.log(user)
+    console.log("login")
     this.setState({user: user})
   }
 
@@ -30,17 +31,20 @@ class App extends Component {
     var mainPage
     if (this.state.user != null) {
       if (this.state.user.isAdmin) {
-        mainPage = <Users logout={this.logout} />;
+        mainPage = <Users />;
       }
       else {
-        mainPage = <Unis logout={this.logout} unis={this.state.user.unis} />
+        mainPage = <Unis unis={this.state.user.unis} />
       }
     } else {
       mainPage = <Login login={this.login}/>
     }
     return (
       <div className="App">
-        <MenuBar isLoggedIn={this.state.user !== null} username={this.state.user !== null ? this.state.user.username : "unknown" } />
+        <MenuBar
+          isLoggedIn={this.state.user !== null}
+          username={this.state.user !== null ? this.state.user.username : "unknown"}
+          logout={this.logout} />
         {mainPage}
       </div>
     );
