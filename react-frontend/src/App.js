@@ -3,6 +3,7 @@ import 'typeface-roboto';
 import Users from './Users';
 import Unis from './Unis'
 import Login from './Login';
+import MenuBar from './MenuBar';
 import './App.css';
 
 class App extends Component {
@@ -16,33 +17,35 @@ class App extends Component {
   }
 
   async logout() {
-    this.setState({user: null})
+    this.setState({ user: null })
+    sessionStorage.setItem("token", "");
+    console.log("logout")
   }
 
   async login(user) {
-    console.log("user")
-    console.log(user)
+    console.log("login")
     this.setState({user: user})
   }
 
   render() {
     var mainPage
-    console.log(this.state.user)
-    console.log("admin")
     if (this.state.user != null) {
-      console.log(this.state.user)
       if (this.state.user.isAdmin) {
-        mainPage = <Users logout={this.logout} />;
+        mainPage = <Users />;
       }
       else {
-        mainPage = <Unis logout={this.logout} unis={this.state.user.unis} />
+        mainPage = <Unis unis={this.state.user.unis} />
       }
     } else {
       mainPage = <Login login={this.login}/>
     }
     return (
       <div className="App">
-        { mainPage }
+        <MenuBar
+          isLoggedIn={this.state.user !== null}
+          username={this.state.user !== null ? this.state.user.username : "unknown"}
+          logout={this.logout} />
+        {mainPage}
       </div>
     );
   }
