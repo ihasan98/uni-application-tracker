@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import * as apiCalls from './api';
+import withAuth from "../../hoc/withAuth";
+import * as apiCalls from '../../api';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
@@ -75,4 +76,4 @@ class Unis extends Component {
     }
 }
 
-export default Unis;
+export default withAuth(false, Unis);

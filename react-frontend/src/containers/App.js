@@ -4,7 +4,7 @@ import { BrowserRouter as Router} from 'react-router-dom';
 import { Provider } from "react-redux";
 import { configureStore } from "../store";
 import Main from './Main';
-import MenuBar from '../MenuBar';
+import MenuBar from '../components/MenuBar';
 import Loading from '../components/Loading';
 import { getCurrentUser } from '../services/api';
 import { setCurrentUser, setAuthorizationToken} from "../store/actions/auth";
@@ -41,6 +41,7 @@ class App extends Component {
   render() {
     const {loading} = this.state;
     let content;
+    // this ensures we wait till we recieve a user from backend before displaying anything.
     if (loading) {
       content = <Loading />
     } else {
