@@ -3,7 +3,7 @@ const UNIAPI = '/api/unis/';
 const LOGINAPI = '/api/login/';
 
 function getAuthToken(){
-    return 'Bearer ' + sessionStorage.getItem('token');
+    return 'Bearer ' + localStorage.getItem('accessToken');
 }
 
 export async function getUsers() {
