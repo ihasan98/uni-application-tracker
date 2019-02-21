@@ -30,7 +30,7 @@ export function authUser(userData) {
             setAuthorizationToken(localStorage.accessToken);
             dispatch(setCurrentUser(response.user));
             dispatch(removeAlert());
-            resolve(); // indicate that the API call succeeded
+            resolve(response.user); // indicate that the API call succeeded, and sends in user
         })
         .catch(err => {
           if(err.status === 401) {

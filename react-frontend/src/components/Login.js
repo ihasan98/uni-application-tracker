@@ -16,14 +16,18 @@ class Login extends Component {
     async login(e) {
         e.preventDefault(); // Prevents page refresh
         this.props.onAuth(this.state)
-        .then(() => {
-            this.props.history.push("/")
+        .then((user) => {
+            if (user.isAdmin) {
+                this.props.history.push("/users")
+            } else {
+                this.props.history.push("/unis")
+            }
         })
         .catch(() => {
             return;
         });
     }
-    
+
     async handleChange(e) {
         this.setState({[e.target.name] : e.target.value});
     }
@@ -58,11 +62,11 @@ class Login extends Component {
                             required
                         />
                     </div>
-                    <Button 
-                    type='submit' 
-                    variant='contained' 
+                    <Button
+                    type='submit'
+                    variant='contained'
                     color='secondary'>Login</Button>
-                </form>  
+                </form>
             </div>
         )
     }
