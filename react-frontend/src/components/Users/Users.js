@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import * as apiCalls from './api';
+import withAuth from "../../hoc/withAuth";
+import * as apiCalls from '../../api';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -107,4 +108,4 @@ class Users extends Component {
     }
 }
 
-export default Users;
+export default withAuth(true, Users);
